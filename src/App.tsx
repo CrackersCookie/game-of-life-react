@@ -24,6 +24,11 @@ function App() {
         rows.map((cols, colsi) => (
           <div
             key={`${rowsi}-${colsi}`}
+            onClick={() => {
+              const copyGrid = grid;
+              copyGrid[rowsi][colsi] = grid[rowsi][colsi] ? 0 : 1;
+              setGrid([...copyGrid]);
+            }}
             style={{
               width: 20,
               height: 20,
