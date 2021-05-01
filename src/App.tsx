@@ -1,9 +1,14 @@
 import { useCallback, useRef, useState } from "react";
-import { setOriginalNode } from "typescript";
 import "./App.css";
 
-const numRows = 50;
-const numCols = 50;
+const getSize = (fullSize: number) => {
+  const reducedSize = fullSize * 0.8;
+  return Math.round(reducedSize / cellSize);
+};
+
+const cellSize = 10;
+const numRows = getSize(window.innerHeight);
+const numCols = getSize(window.innerWidth);
 
 const neighbours = [
   [0, 1],
@@ -106,7 +111,7 @@ function App() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${numCols}, 20px)`,
+          gridTemplateColumns: `repeat(${numCols}, ${cellSize}px)`,
         }}
       >
         {grid.map((rows, rowsi) =>
@@ -119,8 +124,8 @@ function App() {
                 setGrid(copyGrid);
               }}
               style={{
-                width: 20,
-                height: 20,
+                width: cellSize,
+                height: cellSize,
                 backgroundColor: grid[rowsi][colsi] ? "red" : "blue",
                 border: "solid 1px black",
               }}
