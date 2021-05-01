@@ -1,8 +1,9 @@
 import { useCallback, useRef, useState } from "react";
+import { setOriginalNode } from "typescript";
 import "./App.css";
 
-const numRows = 10;
-const numCols = 10;
+const numRows = 50;
+const numCols = 50;
 
 const neighbours = [
   [0, 1],
@@ -15,14 +16,16 @@ const neighbours = [
   [-1, -1],
 ];
 
-const makeEmptyGrid = () => {
-  return Array(numRows)
-    .fill(0)
-    .map(() => Array(numCols).fill(0));
+const makeGrid = (empty = true) => {
+  const newGrid = [];
+  for (let i = 0; i < numRows; i++) {
+    newGrid.push(Array.from(Array(numCols), () => 0));
+  }
+  return newGrid;
 };
 
 function App() {
-  const [grid, setGrid] = useState(makeEmptyGrid());
+  const [grid, setGrid] = useState(makeGrid());
 
   const [running, setRunning] = useState(false);
 
@@ -63,7 +66,7 @@ function App() {
       return copyGrid;
     });
 
-    setTimeout(runCycle, 1000);
+    setTimeout(runCycle, 100);
   }, []);
 
   return (
@@ -82,10 +85,23 @@ function App() {
       </button>
       <button
         onClick={() => {
-          setGrid(makeEmptyGrid());
+          setGrid(makeGrid());
         }}
       >
         Clear
+      </button>
+      <button
+        onClick={() => {
+          const randomGrid = [];
+          for (let i = 0; i < numRows; i++) {
+            randomGrid.push(
+              Array.from(Array(numCols), () => Math.round(Math.random()))
+            );
+          }
+          setGrid(randomGrid);
+        }}
+      >
+        Random
       </button>
       <div
         style={{
