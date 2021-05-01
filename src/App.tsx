@@ -15,12 +15,14 @@ const neighbours = [
   [-1, -1],
 ];
 
+const makeEmptyGrid = () => {
+  return Array(numRows)
+    .fill(0)
+    .map(() => Array(numCols).fill(0));
+};
+
 function App() {
-  const [grid, setGrid] = useState(
-    Array(numRows)
-      .fill(0)
-      .map(() => Array(numCols).fill(0))
-  );
+  const [grid, setGrid] = useState(makeEmptyGrid());
 
   const [running, setRunning] = useState(false);
 
@@ -37,6 +39,7 @@ function App() {
       for (let i = 0; i < numRows; i++) {
         for (let j = 0; j < numCols; j++) {
           let neighbourCount = 0;
+
           neighbours.forEach(([x, y]) => {
             const neighbourI = i + x;
             const neighbourJ = j + y;
@@ -76,6 +79,13 @@ function App() {
         }}
       >
         {running ? "stop" : "start"}
+      </button>
+      <button
+        onClick={() => {
+          setGrid(makeEmptyGrid());
+        }}
+      >
+        Clear
       </button>
       <div
         style={{
