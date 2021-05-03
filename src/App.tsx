@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import "./App.css";
 
 const getSize = (fullSize: number) => {
-  const reducedSize = fullSize * 0.8;
+  const reducedSize = fullSize * 0.7;
   return Math.round(reducedSize / cellSize);
 };
 
@@ -31,7 +31,6 @@ const makeGrid = (empty = true) => {
 
 function App() {
   const [grid, setGrid] = useState(makeGrid());
-
   const [running, setRunning] = useState(false);
 
   const runningRef = useRef(running);
@@ -39,7 +38,6 @@ function App() {
 
   const runCycle = useCallback(() => {
     if (!runningRef.current) return;
-    console.log(grid, "here");
 
     setGrid((prevGrid) => {
       let copyGrid = JSON.parse(JSON.stringify(prevGrid));
@@ -75,10 +73,10 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="App">
       <button
+        className="margin2"
         onClick={() => {
-          console.log(grid, "check");
           setRunning(!running);
           if (!running) {
             runningRef.current = true;
@@ -89,6 +87,7 @@ function App() {
         {running ? "stop" : "start"}
       </button>
       <button
+        className="margin2"
         onClick={() => {
           setGrid(makeGrid());
         }}
@@ -96,6 +95,7 @@ function App() {
         Clear
       </button>
       <button
+        className="margin2"
         onClick={() => {
           const randomGrid = [];
           for (let i = 0; i < numRows; i++) {
@@ -110,6 +110,7 @@ function App() {
       </button>
       <div
         style={{
+          justifyContent: "center",
           display: "grid",
           gridTemplateColumns: `repeat(${numCols}, ${cellSize}px)`,
         }}
@@ -119,7 +120,7 @@ function App() {
             <div
               key={`${rowsi}-${colsi}`}
               onClick={() => {
-                let copyGrid = [...grid];
+                let copyGrid = JSON.parse(JSON.stringify(grid));
                 copyGrid[rowsi][colsi] = grid[rowsi][colsi] ? 0 : 1;
                 setGrid(copyGrid);
               }}
@@ -133,7 +134,7 @@ function App() {
           ))
         )}
       </div>
-    </>
+    </div>
   );
 }
 
