@@ -8,7 +8,7 @@ const getSize = (fullSize: number) => {
 
 const cellSize = 10;
 const numRows = getSize(window.innerHeight);
-const numCols = getSize(window.innerWidth);
+const numCols = getSize(window.innerWidth * 1.2);
 
 const neighbours = [
   [0, 1],
