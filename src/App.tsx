@@ -74,6 +74,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Conway's Game of Life</h1>
       <button
         className="margin2"
         onClick={() => {

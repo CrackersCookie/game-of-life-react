@@ -38,5 +38,9 @@
 }
 
 .margin2 {
-  margin: 1rem;
+  margin: 0.5rem;
+}
+
+h1 {
+  margin-bottom: 0rem;
 }
